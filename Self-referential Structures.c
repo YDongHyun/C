@@ -50,3 +50,24 @@ struct SUJA_LIST* node_sakje(int n, struct SUJA_LIST* sijak) {
 
 	return (sakjenodep);
 }
+void node_sabip(int n, int suchi, struct SUJA_LIST* sijak) {
+	int i;
+	struct SUJA_LIST* bogwan, * p;
+
+	p = sijak;
+	for (i = 0; i < n; i++)
+		p = p->daeum;
+
+	bogwan = p->daeum;
+	p->daeum = (struct SUJA_LIST*)calloc(bytesu, 1);
+	p->daeum->suja = suchi;
+	p->daeum->daeum = bogwan;
+}
+
+void node_idong(int jun, int hoo, struct SUJA_LIST* sijak) {
+	int i;
+	struct SUJA_LIST* idongnodep, * p;
+	idongnodep = node_sakje(jun, sijak);
+	node_sabip(hoo, idongnodep->suja, sijak);
+
+}
