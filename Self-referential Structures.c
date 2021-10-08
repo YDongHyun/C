@@ -71,3 +71,26 @@ void node_idong(int jun, int hoo, struct SUJA_LIST* sijak) {
 	node_sabip(hoo, idongnodep->suja, sijak);
 
 }
+main() {
+	int i, suja, n, sj[N] = { 0,1,2,3,4,5,6,7,8,9 };
+	struct SUJA_LIST* sijakptr, * sakjeptr;
+	
+	bytesu = sizeof(struct SUJA_LIST);
+
+	sijakptr = (struct SUJA_LIST*)malloc(bytesu);
+	sijakptr->daeum = NULL;
+
+	for (i = 0; i < N; i++)
+		sijakpter = node_chuga(sj[i], sijakptr);
+
+	printf("\n ***** 삽입전 단순 연결 리스트 조회 *****\n\n");
+	list_pyosi(sijakptr->daeum);
+
+	while (1) {
+		printf("\n <삽입할 숫자 입력 (없으면 -99입력)> \n\n");
+		printf("숫자입력.....?-->"); scanf("%d", &suja);
+		if (suja == -99) break;
+		node_chuga(suja, sijakptr);
+	}
+
+}
