@@ -1,1 +1,5 @@
-# C-C-
+# C 
+
+-Data Structure
+
+-Algorigsm
