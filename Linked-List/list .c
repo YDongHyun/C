@@ -10,7 +10,7 @@ struct Node {
 struct Node *pStart = NULL;	// 리스트의 첫 노드의 포인터
 struct Node *pEnd = NULL;	// 리스트의 마지막 노드의 포인터
 
-void addrear(int val)
+void addrear(int val)https://github.com/YDongHyun/C/blob/main/list%20.c
 {
 	struct Node *Current;	// 리스트에 추가할 새 노드 생성
 	Current = (struct Node *) malloc(sizeof(struct Node));
