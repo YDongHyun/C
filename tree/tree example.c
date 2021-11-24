@@ -16,31 +16,34 @@ tNode * makeBT(char data, tNode *leftN, tNode *rightN){
   return rt;
 }
 
-void preOrder(tNode *ptr){
+//전위운행
+void preOrder(tNode *ptr){ 
   if (ptr){
-    printf("%c",ptr->data);
+    printf("%c ",ptr->data);
     preOrder(ptr->left);
     preOrder(ptr->right);
   }
 }
 
+//중위운행
 void inOrder(tNode*ptr){
   if(ptr){
     inOrder(ptr->left);
-    printf("%c",ptr->data);
+    printf("%c ",ptr->data);
     inOrder(ptr->right);
   }
 }
 
+//후위운행
 void postOrder(tNode* ptr){
   if (ptr){
     postOrder(ptr->left);
     postOrder(ptr->right);
-    printf("%c",ptr->data);
+    printf("%c ",ptr->data);
   }
 }
 
-void main(){
+int  main(){
   tNode *n1, *n2, *n3, *n4, *n5, *n6;
 
   n6=makeBT('G',NULL,NULL);
@@ -50,5 +53,8 @@ void main(){
   n2=makeBT('B',n4,n5);
   n1=makeBT('A',n2,n3);
 
-  
+  preOrder(n1);
+  inOrder(n1);
+  postOrder(n1);
+
 }
