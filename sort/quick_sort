@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+main() {
+	int ken[] = {70, 11, 31, 3, 17, 9, 32, 23};
+	int i, cnt;
+
+	cnt = sizeof(ken) / sizeof(int);
+
+	quick_a_sort(ken, 0, cnt - 1);
+	for (i = 0; i < cnt; i++) {
+		printf("%3d", ken[i]);
+	}
+}
+
+quick_a_sort(data, left, right)
+int data[], left, right;
+{
+	int i, j, g, tmp, k, m;
+
+	if (left < right) {
+		m = (left + right) / 2;
+		g = data[m];
+		i = left - 1; j = right + 1;
+
+		while (1) {
+			while (data[++i] < g);
+			while (data[--j] > g);
+			if (i >= j) break;
+			tmp = data[i]; data[i] = data[j]; data[j] = tmp;
+		}
+		quick_a_sort(data, left, i - 1);
+		quick_a_sort(data, j + 1, right);
+	}
+}
