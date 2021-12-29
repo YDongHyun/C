@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define TRUE 1
+#define FALSE 0
+#define STACK_LEN 100
+
+typedef int Data;
+
+typedef struct _node {
+	Data data;
+	struct _node* next;
+}Node;
+
+typedef struct _listStack {
+	Node* head;
+}ListStack;
+
+typedef ListStack stack;
+
+void stackInit(stack* pstack) {
+	pstack->head = NULL;
+}
+
+int IsEmpty(stack* pstack) {
+	if (pstack->head==NULL) {
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+
+void push(stack* pstack, Data data) {
+	Node* newNode = (Node*)malloc(sizeof(Node));
+
+	newNode->data = data;
+	newNode->next = pstack->head;
+
+	pstack->head = newNode;
+}
+
+Data pop(stack* pstack) {
+	Data rdata;
+	Node* rnode;
+
+	if (IsEmpty(pstack)){
+		printf("stack memory Error");
+		exit(-1);
+	}
+	rdata = pstack->head->data;
+	rnode = pstack->head;
+	pstack->head = pstack->head->next;
+	free(rnode);
+	return rdata;
+}
+
+Data peek(stack* pstack) {
+	if (IsEmpty(pstack)) {
+		printf("stack memory Error");
+		exit(-1);
+	}
+	return pstack->head->data;
+}
+
+int main(void) {
+	stack s;
+	stackInit(&s);
+
+	push(&s, 1);
+	push(&s, 2);
+	push(&s, 3);
+
+	while (!IsEmpty(&s))
+		printf("%d", pop(&s));
+
+	return 0;
+}
