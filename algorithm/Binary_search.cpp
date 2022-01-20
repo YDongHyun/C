@@ -8,7 +8,7 @@ int main(){
 	scanf ("%d %d", &n, &key);
 	vector<int> a;
 	for(i=0; i<n;i++){
-		scanf("%d",tmp);
+		scanf("%d",&tmp);
 		a.push_back(tmp); // vector는 메모리 사용 
 	}
 	sort(a.begin(),a.end());
