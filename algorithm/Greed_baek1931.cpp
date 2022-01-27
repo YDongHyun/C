@@ -3,17 +3,18 @@
 #include <algorithm>
 using namespace std;
 
-struct Time {
+struct Time {  //구조체 선언
 	int begin;
 	int end;
 };
 
 bool cmp(Time f, Time s){
-	if (f.end == s.end){
-		return f.begin < s.begin;
+	if (f.end == s.end){   //비교해서 end값이 같으면
+		return f.begin < s.begin; //시작이 빠른순으로
 	}
-	else
-		return f.end < s.end;
+	else{
+		return f.end < s.end; // end값이 다르면 종료시간이 빠른 순으로 
+	}
 }
 
 int main(){
