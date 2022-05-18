@@ -94,4 +94,7 @@ int main(){
 	block(7,3);
 }
 
-void gotoxy(int x, i
+void gotoxy(int x, int y){
+	COORD pos = {x*2,y};//여기만 바뀜
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
