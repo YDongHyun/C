@@ -15,6 +15,7 @@ int height=0;
 int board[26][13]={0,0,};
 int tmp_board[4][4]={0,0,};
 int shape=0;
+int score=0;
 
 bool left=true;
 bool right=true;
@@ -26,13 +27,14 @@ void gotoxy(int x, int y){
 
 void game_frame(){
 	for(int i=0;i<25;i++){
-		gotoxy(0,i);printf("▩");
-		gotoxy(10,i);printf("▩");
+		gotoxy(0,i+4);printf("▩");
+		gotoxy(10,i+4);printf("▩");
 	}
 	for(int j=0;j<11;j++){
-		gotoxy(j,25);
+		gotoxy(j,29);
 		printf("▩");
 	}
+	gotoxy(15,5);printf("Score  ");printf("%d",score);
 }
 
 int block_move(){
@@ -91,7 +93,7 @@ void board_set(){
 void print_board(){
 	for(int i=0;i<25;i++){
 		for(int j=2;j<11;j++){
-			gotoxy(j-1,i);
+			gotoxy(j-1,i+4);
 			if(board[i][j]==1){
 				printf("■");
 			}else if (board[i][j]==0){
@@ -113,7 +115,7 @@ void change_num(){
 }
 
 void block_set(){
-	int bar_block[4][4][4][4]={{{{1,0,0,0},{1,0,0,0},{1,0,0,0},{1,0,0,0}},
+	int bar_block[7][4][4][4]={{{{1,0,0,0},{1,0,0,0},{1,0,0,0},{1,0,0,0}},
 							{{0,0,0,0},{0,0,0,0},{0,0,0,0},{1,1,1,1}},
 							{{1,0,0,0},{1,0,0,0},{1,0,0,0},{1,0,0,0}},
 							{{0,0,0,0},{0,0,0,0},{0,0,0,0},{1,1,1,1}}},
@@ -122,13 +124,25 @@ void block_set(){
 							{{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}},
 							{{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}}},
 							{{{0,0,0,0},{0,1,0,0},{1,1,1,0},{0,0,0,0}},
-							{{0,0,0,0},{0,0,1,0},{0,0,1,1},{0,0,1,0}},
+							{{0,0,0,0},{0,1,0,0},{0,1,1,0},{0,1,0,0}},
 							{{0,0,0,0},{1,1,1,0},{0,1,0,0},{0,0,0,0}},
-							{{0,0,0,0},{0,0,1,0},{0,1,1,1},{0,0,0,0}}},
+							{{0,0,0,0},{0,0,1,0},{0,1,1,0},{0,0,1,0}}},
 							{{{0,0,0,0},{0,1,1,0},{0,0,1,0},{0,0,1,0}},
 							{{0,0,0,0},{0,0,0,1},{0,1,1,1},{0,0,0,0}},
 							{{0,0,0,0},{0,0,1,0},{0,0,1,0},{0,0,1,1}},
-							{{0,0,0,0},{0,1,1,1},{0,1,0,0},{0,0,0,0}}}};
+							{{0,0,0,0},{0,1,1,1},{0,1,0,0},{0,0,0,0}}},
+							{{{0,0,0,0},{0,1,1,0},{0,1,0,0},{0,1,0,0}},
+							{{0,0,0,0},{1,1,1,0},{0,0,1,0},{0,0,0,0}},
+							{{0,0,0,0},{0,0,1,0},{0,0,1,0},{0,1,1,0}},
+							{{0,0,0,0},{1,0,0,0},{1,1,1,0},{0,0,0,0}}},
+							{{{0,1,0,0},{0,1,1,0},{0,0,1,0},{0,0,0,0}},
+							{{0,0,0,0},{0,0,1,1},{0,1,1,0},{0,0,0,0}},
+							{{0,1,0,0},{0,1,1,0},{0,0,1,0},{0,0,0,0}},
+							{{0,0,0,0},{0,0,1,1},{0,1,1,0},{0,0,0,0}}},
+							{{{0,0,1,0},{0,1,1,0},{0,1,0,0},{0,0,0,0}},
+							{{0,0,0,0},{0,1,1,0},{0,0,1,1},{0,0,0,0}},
+							{{0,0,1,0},{0,1,1,0},{0,1,0,0},{0,0,0,0}},
+							{{0,0,0,0},{0,1,1,0},{0,0,1,1},{0,0,0,0}}}};
 	
 	for(int i=0;i<4;i++){
 		for(int j=0;j<4;j++){
@@ -155,12 +169,13 @@ void block_down(){
 			for(int j=0;j<4;j++){
 				if(tmp_board[i][j]==2){
 					board[i+height][j+4+weight]=tmp_board[i][j];
-					gotoxy(3+j+weight,i+height);
+					gotoxy(3+j+weight,i+height+4);
 					printf("■");
 				}
 			}
 		}
 		Sleep(150);
+	
 		for(int i=25;i>0;i--){
 			for(int j=2;j<11;j++){
 				if((board[i][j]==2&&board[i+1][j]==1)){
@@ -187,7 +202,7 @@ void block_down(){
 		for(int i=0;i<25;i++){
 			for(int j=2;j<11;j++){				
 				if(board[i][j]==2){
-					gotoxy(j-1,i);
+					gotoxy(j-1,i+4);
 					printf("  ");
 					board[i][j]=0;	
 				}
@@ -197,38 +212,50 @@ void block_down(){
 	}
 }
 
-void block_del(){
-	int cnt=0;
-	for(int i=25;i>0;i--){
-		for(int j=2;j<11;j++){
-			if (j==10&&cnt<9){
-				cnt=0;
-			}
-			if (cnt==9){
-				for(int k=2;k<11;k++){
-					board[i][k]=0;
-					cnt=0;
-					for(int l=0;24-l>0;l++){
-					board[i-l][k]=board[i][k];
-				}
-					}
-				
-				return;
-				}
-			if (board[i][j]==1){
-				cnt++;
-			}
-		}
+void blockshell_move(int row){
+	for(int j=1;j<10;j++){
+		for(int k=2;k<11;k++){
+					board[row-j+1][k]=board[row-j][k];
+					board[row-j][k]=0;
+}
 	}
+					
+	return;
 }
 
+
+void block_del(){
+	int cnt=0;
+	for(int i=24;i>0;i--){
+		for(int j=2;j<11;j++){
+			if (board[i][j]==1){
+				cnt++;
+				if(j==10&&cnt>=9){
+					score+=100;
+					for(int k=2;k<11;k++){
+					board[i][k]=0;
+					cnt=0;
+				}
+				blockshell_move(i);
+				i=25;
+				}
+			}
+			if(j==10&&cnt<9){
+				cnt=0;
+			}			
+
+		}
+	}
+	return;
+}
+
+
 int main(){
-	game_frame();
 	board_set();
-	while(1){
+	while(1){	
 		srand(time(NULL));
-		shape = rand()%4; 
-		print_board();
+		shape = rand()%7; 
+		game_frame();
 		block_down();
 		block_del();
 		print_board();
